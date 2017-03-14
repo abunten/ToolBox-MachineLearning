@@ -31,7 +31,15 @@ def train_model():
     # For consistency with the previous example use
     # model = LogisticRegression(C=10**-10) for your learner
 
-    # TODO: your code here
+    for i in range (len(train_percentages)):
+        accuracy = []
+        for t in range(num_trials):
+            X_train, X_test, y_train, y_test = train_test_split(data.data, data.target,train_size = train_percentages[i]*0.1)
+            model = LogisticRegression(C=10**-10)
+            model.fit(X_train, y_train)
+            accuracy = accuracy + model.score(X_train, y_train)
+        test_accuracies[i] = accuracy / num_trials
+
 
     fig = plt.figure()
     plt.plot(train_percentages, test_accuracies)
